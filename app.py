@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html")  # Load the UI
+    return render_template("index.html")  
 
 @app.route('/recommend', methods=['GET'])
 def recommend():

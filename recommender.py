@@ -5,7 +5,6 @@
 
 
 import pandas as pd
-# Load datasets (Update file paths if needed)
 df_ratings = pd.read_csv("restaurant_data/rating_final.csv")
 df_restaurants = pd.read_csv("restaurant_data/geoplaces2.csv", encoding="ISO-8859-1")  # Restaurant details
 df_user_cuisine = pd.read_csv("restaurant_data/usercuisine.csv")  # User preferences
@@ -36,7 +35,6 @@ df_merged = df_merged.merge(df_user_cuisine, on='userID', how='left')
 # In[6]:
 
 
-# Display the final merged dataset
 print(df_merged.head())
 
 
