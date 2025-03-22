@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Restaurant Recommender</h1>
+        <form id="recommendForm">
+            <label>User ID:</label>
+            <input type="text" id="user_id" required>
+
+            <label>Restaurant Name:</label>
+            <input type="text" id="restaurant_name" required>
+
+            <label>City:</label>
+            <input type="text" id="user_city" required>
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById("recommendForm").onsubmit = async function(event) {
+            event.preventDefault();
+            const user_id = document.getElementById("user_id").value;
+            const restaurant_name = document.getElementById("restaurant_name").value;
+            const user_city = document.getElementById("user_city").value;
+
+            const response = await fetch(`/recommend?user_id=${user_id}&restaurant_name=${restaurant_name}&user_city=${user_city}`);
+            const data = await response.json();
+
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Recommendations:</h2>";
+
+            if (data.error) {
+                resultsDiv.innerHTML += `<p>${data.error}</p>`;
+            } else {
+                data.forEach(restaurant => {
+                    resultsDiv.innerHTML += `<p><strong>${restaurant.name}</strong> - ${restaurant.Rcuisine_y} (${restaurant.city})</p>`;
+                });
+            }
+        };
+    </script>
+</body>
+</html>
